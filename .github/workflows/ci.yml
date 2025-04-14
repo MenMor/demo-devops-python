@@ -65,11 +65,19 @@ jobs:
         with:
           version: 'v1.28.0'
 
-      - name: Decode Kubeconfig
+      - name: Install kind
         run: |
-          echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 -d > kubeconfig
-          mkdir -p ~/.kube
-          mv kubeconfig ~/.kube/config
+          curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.22.0/kind-linux-amd64
+          chmod +x ./kind
+          sudo mv ./kind /usr/local/bin/kind
+
+      - name: Create Kubernetes cluster with kind
+        run: kind create cluster --name demo-cluster
+
+      - name: Wait for cluster to be ready
+        run: |
+          kubectl cluster-info
+          kubectl get nodes
 
       - name: Deploy to Kubernetes
         run: |
@@ -79,3 +87,7 @@ jobs:
           kubectl apply -f k8s/service.yaml
           kubectl apply -f k8s/ingress.yaml
           kubectl apply -f k8s/hpa.yaml
+
+      - name: Verify deployment
+        run: |
+          kubectl get all
