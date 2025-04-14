@@ -16,7 +16,9 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
 
         if request.accepted_renderer.format == "html":
-            return render(request, "users_list.html", {"users": serializer.data})
+            return Response(
+                {'message': 'Hello, world!'}, status=status.HTTP_200_OK
+            )
 
         return Response(serializer.data)
 
