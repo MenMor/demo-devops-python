@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DevOps Demo - Dark</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #1e1e2f, #2c2c3e);
+            margin: 0;
+            padding: 0;
+            color: #f0f0f0;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #151521cc;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .navbar h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #61dafb;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 120px auto 60px;
+            padding: 50px;
+            background: #252537;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+            border-radius: 20px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #f5f6fa;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #aaa;
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-top: 0;
+            margin-bottom: 40px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .api-link {
+            padding: 14px 28px;
+            background: #61dafb;
+            color: #111;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1rem;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .api-link:hover {
+            background: #21a1f1;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h2>DevOps Demo</h2>
+    </div>
+
+    <div class="container">
+        <h1>Bienvenida a tu demo DevOps con Django</h1>
+        <p>por Andrea Mena</p>
+        <div class="button-group">
+            <a href="/api/users/" class="api-link" target="_blank">Ver usuarios en la API</a>
+            <a href="/admin/" class="api-link" target="_blank">Ir al panel de administración</a>
+        </div>
+    </div>
+</body>
+</html>

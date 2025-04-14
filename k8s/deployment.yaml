@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-python-app
+  labels:
+    app: devops-python-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: devops-python-app
+  template:
+    metadata:
+      labels:
+        app: devops-python-app
+    spec:
+      containers:
+        - name: app
+          image: menmor/devops-python-app:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DJANGO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: devops-python-app-secret
+                  key: DJANGO_SECRET_KEY
+            - name: DEBUG
+              valueFrom:
+                configMapKeyRef:
+                  name: devops-python-config
+                  key: DEBUG
+            - name: APP_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: devops-python-config
+                  key: APP_NAME
+            - name: APP_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: devops-python-config
+                  key: APP_ENV
+            - name: DATABASE_NAME
+              value: "db.sqlite3"
+          readinessProbe:
+            httpGet:
+              path: /api/users
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /api/users
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20
